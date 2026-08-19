@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELORA — Configuration and compliance evidence for airline engineering</title>
+<meta name="description" content="ELORA reads the maintenance, modification and OEM systems an airline already runs, answers configuration and compliance questions in plain language, and returns a citation behind every statement.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://elora.is/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://elora.is/">
+<meta property="og:title" content="ELORA — Configuration and compliance evidence for airline engineering">
+<meta property="og:description" content="One question in. A traceable, regulator-format answer out.">
+<meta property="og:site_name" content="ELORA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ELORA — Configuration and compliance evidence for airline engineering">
+<meta name="twitter:description" content="One question in. A traceable, regulator-format answer out.">
+<meta name="theme-color" content="#E6E9E7">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/favicon.svg" color="#A81B52">
+
+<!-- TODO: add /og.png (1200x630) and re-enable:
+<meta property="og:image" content="https://elora.is/og.png">
+<meta name="twitter:image" content="https://elora.is/og.png">
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ELORA",
+  "url": "https://elora.is/",
+  "email": "info@elora.is",
+  "description": "Configuration and compliance evidence layer for airline engineering and CAMO teams.",
+  "address": { "@type": "PostalAddress", "addressCountry": "IS" },
+  "founder": [
+    { "@type": "Person", "name": "Óskar Ásgeirsson" },
+    { "@type": "Person", "name": "Sigurður Evert Ármannsson" }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --paper:#E6E9E7;
+  --surface:#F7F8F7;
+  --ink:#12171A;
+  --ink-2:#5A666C;
+  --rule:#C7CECB;
+  --rev:#A81B52;
+  --steel:#1E2A31;
+  --steel-2:#33434C;
+
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --gutter:clamp(20px,5vw,64px);
+  --maxw:1120px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+@media(min-width:800px){body{font-size:18px}}
+
+a{color:inherit}
+img{max-width:100%}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-2);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 22px;
+}
+.eyebrow::before{
+  content:"";
+  width:2px;height:13px;
+  background:var(--rev);
+  flex:none;
+}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;letter-spacing:-.022em;line-height:1.08}
+h1{font-size:clamp(2.15rem,6.2vw,4.15rem);letter-spacing:-.032em;font-weight:700}
+h2{font-size:clamp(1.6rem,3.4vw,2.5rem)}
+h3{font-size:1.06rem;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+p{margin:0 0 1.1em}
+.lede{font-size:clamp(1.05rem,1.9vw,1.3rem);color:var(--ink-2);max-width:56ch}
+.tight{max-width:60ch}
+
+/* ---------- header ---------- */
+header.top{
+  border-bottom:1px solid var(--rule);
+  position:sticky;top:0;z-index:20;
+  background:rgba(230,233,231,.9);
+  backdrop-filter:blur(8px);
+}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.mark{font-family:var(--display);font-weight:700;letter-spacing:.2em;font-size:15px}
+.top nav{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;display:flex;gap:22px;align-items:center}
+.top nav a{text-decoration:none;color:var(--ink-2)}
+.top nav a:hover{color:var(--rev)}
+.hide-s{display:none}
+@media(min-width:720px){.hide-s{display:inline}}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(48px,9vw,104px) 0 clamp(40px,7vw,72px)}
+.hero .stamp{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);border:1px solid var(--rule);border-left:2px solid var(--rev);
+  display:inline-block;padding:5px 10px;margin-bottom:26px;
+}
+.hero h1{max-width:19ch}
+.hero .lede{margin-top:22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
+.btn{
+  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;padding:13px 20px;display:inline-block;border:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);transition:background .18s,color .18s;
+}
+.btn:hover{background:var(--rev);border-color:var(--rev)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn.ghost:hover{background:transparent;color:var(--rev);border-color:var(--rev)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--rev);outline-offset:3px}
+
+/* ---------- evidence card (signature) ---------- */
+.evidence{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:2px solid var(--rev);
+  margin-top:clamp(38px,6vw,60px);
+}
+.ev-bar{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:10px 16px;border-bottom:1px solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+}
+.ev-body{padding:clamp(18px,3.4vw,32px)}
+.ev-q{
+  font-family:var(--mono);font-size:clamp(13px,1.7vw,15px);
+  padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid var(--rule);
+}
+.ev-q span{color:var(--rev);margin-right:8px}
+.ev-a{font-size:clamp(1.05rem,2.3vw,1.42rem);line-height:1.42;font-family:var(--display);font-weight:500;letter-spacing:-.015em;max-width:38ch}
+.ev-a em{font-style:normal;color:var(--rev)}
+.ev-sub{color:var(--ink-2);font-size:.95rem;margin:12px 0 0}
+.src-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:28px 0 10px}
+.srcs{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.src{
+  background:var(--surface);border:0;width:100%;text-align:left;cursor:pointer;
+  font-family:var(--mono);font-size:12.5px;color:var(--ink);
+  padding:12px 14px;display:flex;gap:12px;align-items:baseline;transition:background .15s;
+}
+.src:hover{background:#EDEFEE}
+.src .n{color:var(--rev);flex:none}
+.src .arrow{margin-left:auto;color:var(--ink-2);flex:none;transition:transform .2s}
+.src[aria-expanded="true"] .arrow{transform:rotate(90deg)}
+.src-detail{
+  display:none;background:#EDEFEE;padding:0 14px 14px 40px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--ink-2);
+}
+.src-detail.open{display:block}
+.ev-foot{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:11px 16px;border-top:1px solid var(--rule)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(52px,8vw,96px) 0;border-top:1px solid var(--rule)}
+section.hero{border-top:0}
+.grid2{display:grid;gap:clamp(26px,4vw,56px)}
+@media(min-width:880px){.grid2{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start}}
+
+/* system tags */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{
+  font-family:var(--mono);font-size:11.5px;padding:7px 11px;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--surface);
+}
+.count{display:flex;gap:clamp(24px,5vw,52px);margin-top:30px;flex-wrap:wrap}
+.count div{border-left:2px solid var(--rev);padding-left:14px}
+.count b{font-family:var(--display);font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;display:block;line-height:1;letter-spacing:-.03em}
+.count span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+
+/* steps — a real sequence, so numbered */
+.steps{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+@media(min-width:760px){.steps{grid-template-columns:repeat(4,1fr)}}
+.step{background:var(--surface);padding:22px 20px 26px}
+.step .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--rev);display:block;margin-bottom:14px}
+.step p{font-size:.94rem;color:var(--ink-2);margin:8px 0 0}
+
+/* output list */
+.outs{border-top:1px solid var(--rule);margin-top:10px}
+.out{border-bottom:1px solid var(--rule);padding:22px 0;display:grid;gap:6px}
+@media(min-width:820px){.out{grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:32px;align-items:baseline}}
+.out p{margin:0;color:var(--ink-2);font-size:.98rem}
+
+/* findings */
+.findings{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+@media(min-width:820px){.findings{grid-template-columns:repeat(3,1fr)}}
+.find{background:var(--surface);padding:24px 22px}
+.find .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;display:block}
+.find.v .k{color:#1F6B4A}
+.find.d .k{color:var(--rev)}
+.find.o .k{color:var(--ink-2)}
+.find p{font-size:.96rem;margin:0 0 .9em}
+.find p:last-child{margin:0}
+.find q{font-style:italic}
+
+/* dark block */
+.dark{background:var(--steel);color:#DDE4E7;border-top:1px solid var(--steel)}
+.dark h2{color:#fff}
+.dark .eyebrow{color:#8FA2AC}
+.dark .lede{color:#AEBFC7}
+.dark .rowline{border-top:1px solid var(--steel-2)}
+.pilot{display:grid;gap:1px;background:var(--steel-2);border:1px solid var(--steel-2);margin-top:34px}
+@media(min-width:760px){.pilot{grid-template-columns:repeat(3,1fr)}}
+.pcell{background:var(--steel);padding:24px 22px}
+.pcell .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#7F98A4;display:block;margin-bottom:12px}
+.pcell p{font-size:.95rem;color:#B9C9D1;margin:8px 0 0}
+.pcell h3{color:#fff}
+.dark .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.dark .btn:hover{background:var(--rev);border-color:var(--rev);color:#fff}
+.dark .btn.ghost{background:transparent;color:#DDE4E7;border-color:var(--steel-2)}
+.dark .btn.ghost:hover{color:#fff;border-color:#7F98A4}
+
+/* team */
+.team{display:grid;gap:28px;margin-top:8px}
+@media(min-width:760px){.team{grid-template-columns:1fr 1fr;gap:48px}}
+.person .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rev);display:block;margin:6px 0 12px}
+.person p{font-size:.97rem;color:var(--ink-2)}
+
+/* notes / honesty block */
+.notes{border-left:2px solid var(--rev);padding-left:20px;margin-top:8px;max-width:66ch}
+.notes p{font-size:.97rem;color:var(--ink-2)}
+
+/* contact */
+.contact-mail{
+  font-family:var(--display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(1.5rem,4.6vw,2.6rem);text-decoration:none;display:inline-block;
+  border-bottom:2px solid var(--rule);padding-bottom:4px;
+}
+.contact-mail:hover{color:var(--rev);border-color:var(--rev)}
+
+footer{border-top:1px solid var(--rule);padding:34px 0 46px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-2)}
+.foot-in{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;text-transform:uppercase}
+
+/* motion */
+.rise{opacity:0;transform:translateY(10px);transition:opacity .55s ease,transform .55s ease}
+.rise.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rise{opacity:1;transform:none;transition:none}
+  *{scroll-behavior:auto!important}
+  .src .arrow{transition:none}
+}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="#top" class="mark" style="text-decoration:none">ELORA</a>
+    <nav>
+      <a href="#problem" class="hide-s">Problem</a>
+      <a href="#how" class="hide-s">How it works</a>
+      <a href="#evidence" class="hide-s">Evidence</a>
+      <a href="#pilot">Pilot</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="stamp">Rev 2 · Aug 2026 · Configuration &amp; compliance</span>
+    <h1>What configuration is this aircraft in — and can you prove it?</h1>
+    <p class="lede">ELORA is a configuration and compliance layer for airline engineering and CAMO teams. It reads the systems you already run, answers in plain language, and returns a source you can open behind every statement.</p>
+    <div class="cta-row">
+      <a class="btn" href="#pilot">Run a pilot on one real question</a>
+      <a class="btn ghost" href="#how">See how it works</a>
+    </div>
+
+    <!-- SIGNATURE: the evidence record -->
+    <div class="evidence rise" id="ev">
+      <div class="ev-bar">
+        <span>ELORA workspace</span>
+        <span>Evidence record</span>
+      </div>
+      <div class="ev-body">
+        <div class="ev-q"><span>&gt;</span>Is SB 34-1234 embodied on MSN 4172?</div>
+        <p class="ev-a">Embodied at <em>Rev 3</em> under EO 21-0456, 14 Mar 2024.</p>
+        <p class="ev-sub">One aircraft in the fleet remains at Rev 2.</p>
+
+        <p class="src-label">Sources · 3 · each one openable</p>
+        <div class="srcs">
+          <button class="src" aria-expanded="false" aria-controls="d1">
+            <span class="n">01</span><span>Work order 88213 — M&amp;E system</span><span class="arrow">›</span>
+          </button>
+          <div class="src-detail" id="d1">Closed 14 Mar 2024 · station KEF · task card 34-11-00-720 · signed off against EO 21-0456.</div>
+          <button class="src" aria-expanded="false" aria-controls="d2">
+            <span class="n">02</span><span>SB 34-1234 Rev 3, p.4 — OEM portal</span><span class="arrow">›</span>
+          </button>
+          <div class="src-detail" id="d2">Effectivity block lists MSN 4172. Rev 3 supersedes Rev 2 — kit part number changed at Rev 3.</div>
+          <button class="src" aria-expanded="false" aria-controls="d3">
+            <span class="n">03</span><span>EO 21-0456 — modification records</span><span class="arrow">›</span>
+          </button>
+          <div class="src-detail" id="d3">Engineering order raised against SB Rev 3, approved 02 Feb 2024, applicable to 6 of 7 tails.</div>
+        </div>
+      </div>
+      <div class="ev-foot">Illustrative interface · values are examples, not customer data</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <p class="eyebrow">The problem</p>
+    <div class="grid2">
+      <div>
+        <h2>An engineer opens ten windows to answer one question.</h2>
+      </div>
+      <div>
+        <p class="tight">The question is simple. Which configuration standard is this aircraft in, is that modification embodied, and where is the evidence.</p>
+        <p class="tight">The answer is not in one place. It is spread across the maintenance system, the OEM portal, modification records, manuals and drawings, scanned shop reports and a shared drive — none of which talk to each other.</p>
+        <p class="tight">So it gets rebuilt by hand. Every aircraft, every time, leaving no reusable trace behind it.</p>
+        <div class="tags">
+          <span class="tag">M&amp;E / records system</span>
+          <span class="tag">OEM portals</span>
+          <span class="tag">Modification records</span>
+          <span class="tag">Manuals &amp; drawings</span>
+          <span class="tag">Shop reports (PDF)</span>
+          <span class="tag">Shared &amp; cloud drives</span>
+        </div>
+        <div class="count">
+          <div><b>5–6</b><span>systems queried</span></div>
+          <div><b>0</b><span>reusable trace</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2 class="tight">A layer on top of the systems you already own.</h2>
+    <p class="lede" style="margin-top:16px">Nothing is replaced, nothing is migrated, and the source of truth does not move.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="k">STEP 01</span>
+        <h3>Connect</h3>
+        <p>Read-only connectors into the maintenance system, modification records, OEM data and document stores.</p>
+      </div>
+      <div class="step">
+        <span class="k">STEP 02</span>
+        <h3>Ask</h3>
+        <p>Ask in plain language. No query language, no new database to populate, no change to your records.</p>
+      </div>
+      <div class="step">
+        <span class="k">STEP 03</span>
+        <h3>Assemble</h3>
+        <p>The answer comes back as a structured deliverable, in the format the process and the regulator expect.</p>
+      </div>
+      <div class="step">
+        <span class="k">STEP 04</span>
+        <h3>Prove</h3>
+        <p>Every statement is anchored to the document, revision and page it came from. Nothing is asserted that cannot be opened.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTPUTS -->
+<section id="outputs">
+  <div class="wrap">
+    <p class="eyebrow">What you get back</p>
+    <h2 class="tight">An evidence pack, not a chat answer.</h2>
+    <div class="outs">
+      <div class="out">
+        <h3>Configuration baseline and delta, per tail</h3>
+        <p>What is fitted, under which modification, at which revision — and what differs from the fleet standard.</p>
+      </div>
+      <div class="out">
+        <h3>Applicability checked against the aircraft</h3>
+        <p>Service bulletins, airworthiness directives and modifications assessed against the actual configuration, not the fleet average.</p>
+      </div>
+      <div class="out">
+        <h3>Reliability and removal analysis</h3>
+        <p>Removals, shop findings and OEM service data assembled into one analysis instead of a week of manual retrieval.</p>
+      </div>
+      <div class="out">
+        <h3>A record that survives an audit</h3>
+        <p>Structured report, audit trail, and a retrievable citation behind every line — the same answer, reproducible six months later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE -->
+<section id="evidence">
+  <div class="wrap">
+    <p class="eyebrow">What operators told us</p>
+    <h2 class="tight">Six discovery interviews across four airlines and a lessor.</h2>
+    <p class="lede" style="margin-top:16px">We publish what was disproved alongside what was confirmed. Interviewees are not named.</p>
+    <div class="findings">
+      <div class="find v">
+        <span class="k">Confirmed</span>
+        <p>Fragmentation and manual re-keying was named as the single biggest problem at VP Technical Operations level — volunteered, not prompted.</p>
+        <p>An avionics engineer at a major European carrier listed more than seven disconnected systems and estimated a connected assistant would cut reliability analysis by more than half.</p>
+      </div>
+      <div class="find d">
+        <span class="k">Disproved</span>
+        <p>Electrical load analysis is not the pain. It surfaced as a downstream administrative step, never as a bottleneck. That finding is why this page changed.</p>
+        <p>Lessors are not the buyer. Asked directly about configuration, one leasing company answered that it is an airline problem.</p>
+      </div>
+      <div class="find o">
+        <span class="k">Still open</span>
+        <p>Willingness to pay is unproven. No price has been tested with a budget holder.</p>
+        <p>OEM data licensing for third-party ingestion is unverified and is a gating risk we are clearing before we build further.</p>
+      </div>
+    </div>
+    <div class="notes">
+      <p>We also built a CS-25 electrical load analysis tool, and it works. It is how we learned that the calculation was never the hard part — finding and proving the configuration it runs against is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section id="pilot" class="dark">
+  <div class="wrap">
+    <p class="eyebrow">Start here</p>
+    <h2 class="tight">A paid pilot on one real question.</h2>
+    <p class="lede" style="margin-top:16px">Six to eight weeks, fixed fee. One configuration or compliance question your team actually has, answered end to end with full traceability — timed the old way and the new way, with your engineers as the judge.</p>
+    <div class="pilot">
+      <div class="pcell">
+        <span class="k">What we need</span>
+        <h3>One question, one owner</h3>
+        <p>A named engineering or fleet budget holder, and a question that costs you real hours today.</p>
+      </div>
+      <div class="pcell">
+        <span class="k">What we need</span>
+        <h3>Read-only access</h3>
+        <p>Scoped, read-only, under your data-handling terms. Nothing is written back to your records.</p>
+      </div>
+      <div class="pcell">
+        <span class="k">What you get</span>
+        <h3>A measured baseline</h3>
+        <p>The finished evidence pack, plus a before-and-after time measurement you can take to a budget.</p>
+      </div>
+    </div>
+    <div class="cta-row" style="margin-top:34px">
+      <a class="btn" href="mailto:info@elora.is?subject=ELORA%20pilot%20enquiry">Email us about a pilot</a>
+      <a class="btn ghost" href="#how">How it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- DATA HANDLING -->
+<section id="data">
+  <div class="wrap">
+    <p class="eyebrow">Data handling</p>
+    <div class="grid2">
+      <div><h2>Your technical data stays yours.</h2></div>
+      <div>
+        <p class="tight">Wiring manuals, load lists, modification records and fleet data are treated as confidential by default. Access is read-only and scoped to the pilot question. We do not write to your records and we do not train on your data.</p>
+        <p class="tight">We work to an ISO/IEC 27001 path, GDPR obligations for any personal data, and whatever NDA and residency terms you impose. If your terms and our architecture cannot be reconciled, we will say so before the pilot rather than after it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="wrap">
+    <p class="eyebrow">Who we are</p>
+    <h2 class="tight">Avionics engineers at an airline, building the thing we needed.</h2>
+    <div class="team" style="margin-top:34px">
+      <div class="person">
+        <h3>Óskar Ásgeirsson</h3>
+        <span class="role">Co-founder</span>
+        <p>B.Sc. Mechanical Engineering, Reykjavík University. M.Sc. Aeronautical Engineering, Linköping University. Eight years across aircraft systems, design and continued airworthiness.</p>
+      </div>
+      <div class="person">
+        <h3>Sigurður Evert Ármannsson</h3>
+        <span class="role">Co-founder</span>
+        <p>B.Eng. Aerospace Engineering, University of Liverpool. Five years in continuing airworthiness management, and author of the analysis tooling behind ELORA.</p>
+      </div>
+    </div>
+    <div class="notes" style="margin-top:34px">
+      <p>ELORA is pre-revenue and pre-product. What exists today is the domain knowledge, the working analysis tooling, and six discovery interviews. What we are looking for is the first operator willing to put one real question in front of it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2 class="tight" style="margin-bottom:26px">Tell us the question that costs you a week.</h2>
+    <a class="contact-mail" href="mailto:info@elora.is">info@elora.is</a>
+    <p class="lede" style="margin-top:26px">Reykjavík, Iceland. We work with operators, CAMO and design organisations across Europe and North America.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>ELORA · Reykjavík, Iceland</span>
+    <span>Configuration · Compliance · Traceability · Airworthiness</span>
+    <span>Rev 2 · 2026</span>
+  </div>
+</footer>
+
+<script>
+// Source expanders on the evidence record
+document.querySelectorAll('.src').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if (panel) panel.classList.toggle('open', !open);
+  });
+});
+
+// Scroll reveal
+var rise = document.querySelectorAll('.rise');
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  rise.forEach(function(el){ io.observe(el); });
+} else {
+  rise.forEach(function(el){ el.classList.add('in'); });
+}
+</script>
+</body>
+</html>
