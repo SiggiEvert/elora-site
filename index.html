@@ -71,11 +71,12 @@
   }
   .brand-main {
     flex: 1;
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
     gap: clamp(20px, 3.5vw, 36px);
   }
+  .brand-col { width: 100%; max-width: 30rem; }
   .logo img { width: clamp(240px, 27vw, 400px); height: auto; display: block; }
-  .intro { max-width: 28rem; }
+  .intro { max-width: 30rem; }
   .intro h1 {
     font-size: clamp(1.8rem, 2.6vw, 2.4rem);
     font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
@@ -168,11 +169,13 @@
 
   <section class="brand">
     <div class="brand-main">
-    <a class="logo" href="/" aria-label="ELORA">
-      <img src="elora-logo.png" alt="ELORA" width="800" height="272">
-    </a>
+    <div class="brand-col">
+      <a class="logo" href="/" aria-label="ELORA">
+        <img src="elora-logo.png" alt="ELORA" width="800" height="272">
+      </a>
+    </div>
 
-    <div class="intro">
+    <div class="intro brand-col">
       <h1>Aircraft configuration and compliance, with the evidence behind every answer.</h1>
       <p>ELORA connects the systems airline engineering already uses and returns traceable, audit-ready answers. Built by avionics engineers in Reykjavík.</p>
     </div>
