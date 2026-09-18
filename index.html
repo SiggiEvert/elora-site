@@ -3,31 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ELORA — Configuration and compliance evidence for airline engineering</title>
-<meta name="description" content="ELORA is building a configuration and compliance layer for airline engineering and CAMO teams.">
+<title>ELORA — Aircraft configuration and compliance for airline engineering</title>
+<meta name="description" content="ELORA connects the systems airline engineering already uses and returns traceable, audit-ready answers. Built by avionics engineers in Reykjavik.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://elora.is/">
+
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://elora.is/">
-<meta property="og:title" content="ELORA — Configuration and compliance evidence for airline engineering">
-<meta property="og:description" content="One question in. A traceable, regulator-format answer out.">
 <meta property="og:site_name" content="ELORA">
+<meta property="og:title" content="ELORA - Aircraft configuration and compliance for airline engineering">
+<meta property="og:description" content="Traceable, audit-ready answers, with the evidence behind every one.">
 <meta property="og:image" content="https://elora.is/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ELORA — What configuration is this aircraft in, and can you prove it?">
+<meta property="og:image:alt" content="ELORA - aircraft configuration and compliance">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ELORA — Configuration and compliance evidence for airline engineering">
-<meta name="twitter:description" content="One question in. A traceable, regulator-format answer out.">
+<meta name="twitter:title" content="ELORA - Aircraft configuration and compliance for airline engineering">
+<meta name="twitter:description" content="Traceable, audit-ready answers, with the evidence behind every one.">
 <meta name="twitter:image" content="https://elora.is/og.png">
-<meta name="theme-color" content="#E6E9E7">
+<meta name="theme-color" content="#10243E">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/favicon.svg" color="#A81B52">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/icon.png">
 
 <script type="application/ld+json">
 {
@@ -36,132 +33,185 @@
   "name": "ELORA",
   "url": "https://elora.is/",
   "email": "info@elora.is",
-  "description": "Configuration and compliance evidence layer for airline engineering and CAMO teams.",
+  "logo": "https://elora.is/elora-logo.png",
+  "description": "Aircraft configuration and compliance for airline engineering.",
   "address": { "@type": "PostalAddress", "addressCountry": "IS" }
 }
 </script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#E6E9E7;
-  --ink:#12171A;
-  --ink-2:#5A666C;
-  --rule:#C7CECB;
-  --rev:#A81B52;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:"Archivo",system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;
-  min-height:100svh;
-  display:flex;
-  flex-direction:column;
-}
+  :root {
+    --ink: #10243E;
+    --text: #17202B;
+    --muted: #5A6675;
+    --line: rgba(255,255,255,.2);
+    --focus: #2F80ED;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: "Manrope", system-ui, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
 
-/* the amendment change bar */
-body::before{
-  content:"";
-  position:fixed;
-  left:0;top:0;bottom:0;
-  width:6px;
-  background:var(--rev);
-}
+  .brand {
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: clamp(28px, 5vw, 72px);
+  }
+  .logo img { width: clamp(180px, 20vw, 260px); height: auto; display: block; }
+  .intro { max-width: 28rem; padding: 2rem 0; }
+  .intro h1 {
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+  .intro p { font-size: 1.1rem; color: var(--muted); margin: 0; }
+  .foot { font-size: .875rem; color: var(--muted); }
+  .foot a { color: inherit; }
 
-.wrap{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:clamp(28px,7vw,80px);
-  padding-left:clamp(34px,7vw,86px);
-  max-width:1000px;
-}
+  .contact {
+    background: var(--ink); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(28px, 5vw, 72px);
+  }
+  form, .done { width: 100%; max-width: 26rem; }
+  h2 { font-size: 1.4rem; font-weight: 700; margin: 0 0 1.5rem; }
 
-/* wordmark */
-.mark{
-  font-weight:700;
-  letter-spacing:.34em;
-  font-size:clamp(1.05rem,2.4vw,1.5rem);
-  line-height:1;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:clamp(30px,6vw,52px);
-}
-.mark::before{
-  content:"";
-  width:3px;
-  height:1.15em;
-  background:var(--rev);
-  flex:none;
-}
+  fieldset { border: 0; padding: 0; margin: 0 0 1.25rem; }
+  legend, label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: .5rem; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .choice { position: relative; }
+  .choice input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .choice span {
+    display: block; text-align: center; padding: .85rem 1rem;
+    border: 1.5px solid var(--line); border-radius: 6px; cursor: pointer; font-weight: 600;
+  }
+  .choice input:checked + span { border-color: #fff; background: rgba(255,255,255,.08); }
+  .choice input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-/* catchphrase */
-h1{
-  font-weight:700;
-  font-size:clamp(2rem,6.4vw,4.4rem);
-  line-height:1.06;
-  letter-spacing:-.033em;
-  margin:0;
-  max-width:17ch;
-}
+  .field { margin-bottom: 1.1rem; }
+  .field input {
+    width: 100%; font: inherit; padding: .8rem .9rem; border-radius: 6px;
+    border: 1.5px solid var(--line); background: rgba(255,255,255,.06); color: #fff;
+  }
+  .field input::placeholder { color: rgba(255,255,255,.4); }
+  .field input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; border-color: transparent; }
 
-.sub{
-  margin:clamp(24px,4vw,34px) 0 0;
-  font-size:clamp(1rem,2vw,1.25rem);
-  font-weight:400;
-  line-height:1.5;
-  color:var(--ink-2);
-  max-width:44ch;
-}
+  button {
+    width: 100%; font: inherit; font-weight: 700; font-size: 1rem;
+    padding: .9rem 1rem; border: 0; border-radius: 6px;
+    background: #fff; color: var(--ink); cursor: pointer;
+  }
+  button:hover { background: #E8EEF6; }
+  button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  button[disabled] { opacity: .6; cursor: wait; }
 
-footer{
-  border-top:1px solid var(--rule);
-  padding:22px clamp(28px,7vw,80px);
-  padding-left:clamp(34px,7vw,86px);
-  font-family:"IBM Plex Mono",ui-monospace,monospace;
-  font-size:11px;
-  letter-spacing:.11em;
-  text-transform:uppercase;
-  color:var(--ink-2);
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px 26px;
-  justify-content:space-between;
-}
-footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
-footer a:hover{color:var(--rev);border-color:var(--rev)}
-a:focus-visible{outline:2px solid var(--rev);outline-offset:3px}
+  .note { font-size: .8rem; color: rgba(255,255,255,.55); margin: 1rem 0 0; }
+  .status { min-height: 1.4rem; margin-top: .75rem; font-size: .9rem; color: #FFB4A8; }
+  .done { display: none; }
+  .done p { color: rgba(255,255,255,.75); margin: 0; }
 
-/* entrance */
-.fade{opacity:0;animation:in .7s ease forwards}
-.fade:nth-child(1){animation-delay:.05s}
-.fade:nth-child(2){animation-delay:.18s}
-.fade:nth-child(3){animation-delay:.31s}
-@keyframes in{to{opacity:1;transform:none}}
-.fade{transform:translateY(8px)}
-@media(prefers-reduced-motion:reduce){
-  .fade{opacity:1;transform:none;animation:none}
-}
+  @media (max-width: 820px) {
+    .split { grid-template-columns: 1fr; }
+    .brand { gap: 1.5rem; }
+    .foot { padding-bottom: .5rem; }
+    .choices { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="mark fade">ELORA</div>
-  <h1 class="fade">What configuration is this aircraft in — and can you prove it?</h1>
-  <p class="sub fade">We are building the configuration and compliance layer for airline engineering. Every answer returns a source you can open.</p>
-</div>
+<main class="split">
 
-<footer>
-  <span>Reykjavík, Iceland</span>
-  <span><a href="mailto:info@elora.is">info@elora.is</a></span>
-  <span>Rev 2 · 2026</span>
-</footer>
+  <section class="brand">
+    <a class="logo" href="/" aria-label="ELORA">
+      <img src="elora-logo.png" alt="ELORA" width="800" height="272">
+    </a>
 
+    <div class="intro">
+      <h1>Aircraft configuration and compliance, with the evidence behind every answer.</h1>
+      <p>ELORA connects the systems airline engineering already uses and returns traceable, audit-ready answers. Built by avionics engineers in Reykjavík.</p>
+    </div>
+
+    <div class="foot"><a href="mailto:info@elora.is">info@elora.is</a></div>
+  </section>
+
+  <section class="contact">
+    <form id="contact-form" action="https://formspree.io/f/xdekknrz" method="POST">
+      <input type="hidden" name="_subject" value="New enquiry from elora.is">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+      <h2>Get in touch</h2>
+
+      <fieldset>
+        <legend>I am a</legend>
+        <div class="choices">
+          <label class="choice">
+            <input type="radio" name="interest" value="AI Advisor" required>
+            <span>AI Advisor</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="interest" value="Pilot Customer" required>
+            <span>Pilot Customer</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <button type="submit" id="send-btn">Send</button>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+      <p class="note">We use your name and email only to reply.</p>
+    </form>
+
+    <div class="done" id="done">
+      <h2>Thank you</h2>
+      <p>We have your message and will be in touch.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('send-btn');
+  const status = document.getElementById('status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    status.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Sending';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (!res.ok) throw new Error();
+      form.style.display = 'none';
+      document.getElementById('done').style.display = 'block';
+    } catch {
+      status.textContent = 'Could not send. Please email info@elora.is.';
+      btn.disabled = false;
+      btn.textContent = 'Send';
+    }
+  });
+</script>
 </body>
 </html>
