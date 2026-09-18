@@ -38,10 +38,15 @@
   "address": { "@type": "PostalAddress", "addressCountry": "IS" }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face {
+    font-family: "Manrope";
+    src: url("/fonts/manrope-var.woff2") format("woff2-variations");
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
     --ink: #10243E;
     --text: #17202B;
@@ -61,11 +66,16 @@
   .split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
 
   .brand {
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column;
     padding: clamp(28px, 5vw, 72px);
   }
-  .logo img { width: clamp(180px, 20vw, 260px); height: auto; display: block; }
-  .intro { max-width: 28rem; padding: 2rem 0; }
+  .brand-main {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: clamp(20px, 3.5vw, 36px);
+  }
+  .logo img { width: clamp(240px, 27vw, 400px); height: auto; display: block; }
+  .intro { max-width: 28rem; }
   .intro h1 {
     font-size: clamp(1.8rem, 2.6vw, 2.4rem);
     font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
@@ -117,10 +127,37 @@
   .done { display: none; }
   .done p { color: rgba(255,255,255,.75); margin: 0; }
 
+  .legal { font-size: .8rem; color: rgba(255,255,255,.55); margin: .9rem 0 0; }
+  .legal a { color: rgba(255,255,255,.8); }
+
+  #consent {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    background: #fff; border-top: 1.5px solid #D8DEE6;
+    padding: 1rem clamp(16px, 4vw, 40px);
+    display: none; gap: 1rem 2rem;
+    align-items: center; justify-content: space-between; flex-wrap: wrap;
+    box-shadow: 0 -6px 24px rgba(16,36,62,.08);
+  }
+  #consent.show { display: flex; }
+  #consent p { margin: 0; font-size: .9rem; color: var(--muted); max-width: 62ch; }
+  #consent p a { color: var(--ink); }
+  .consent-actions { display: flex; gap: .6rem; flex: none; }
+  .consent-actions button {
+    width: auto; padding: .6rem 1.2rem; font-size: .9rem; border-radius: 6px;
+    border: 1.5px solid var(--ink); background: var(--ink); color: #fff;
+  }
+  .consent-actions button:hover { background: #1B3556; }
+  .consent-actions .secondary { background: #fff; color: var(--ink); }
+  .consent-actions .secondary:hover { background: #EEF2F7; }
+
   @media (max-width: 820px) {
     .split { grid-template-columns: 1fr; }
     .brand { gap: 1.5rem; }
+    .brand-main { flex: none; gap: 1.25rem; padding: 1.5rem 0; }
     .foot { padding-bottom: .5rem; }
+    #consent { flex-direction: column; align-items: flex-start; }
+    .consent-actions { width: 100%; }
+    .consent-actions button { flex: 1; }
     .choices { grid-template-columns: 1fr; }
   }
 </style>
@@ -130,6 +167,7 @@
 <main class="split">
 
   <section class="brand">
+    <div class="brand-main">
     <a class="logo" href="/" aria-label="ELORA">
       <img src="elora-logo.png" alt="ELORA" width="800" height="272">
     </a>
@@ -138,8 +176,9 @@
       <h1>Aircraft configuration and compliance, with the evidence behind every answer.</h1>
       <p>ELORA connects the systems airline engineering already uses and returns traceable, audit-ready answers. Built by avionics engineers in Reykjavík.</p>
     </div>
+    </div>
 
-    <div class="foot"><a href="mailto:info@elora.is">info@elora.is</a></div>
+    <div class="foot"><a href="mailto:info@elora.is">info@elora.is</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></div>
   </section>
 
   <section class="contact">
@@ -175,7 +214,7 @@
 
       <button type="submit" id="send-btn">Send</button>
       <div class="status" id="status" role="status" aria-live="polite"></div>
-      <p class="note">We use your name and email only to reply.</p>
+      <p class="note">We use your name and email only to reply to you. See our <a href="/privacy.html">privacy notice</a>.</p>
     </form>
 
     <div class="done" id="done">
@@ -185,6 +224,36 @@
   </section>
 
 </main>
+
+<div id="consent" role="dialog" aria-live="polite" aria-label="Privacy choices">
+  <p>This site sets no tracking or advertising cookies. We would like your consent before enabling optional analytics that help us understand how the site is used. Details in our <a href="/privacy.html">privacy notice</a>.</p>
+  <div class="consent-actions">
+    <button type="button" class="secondary" id="consent-no">Decline</button>
+    <button type="button" id="consent-yes">Accept</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var KEY = 'elora-consent';
+    var bar = document.getElementById('consent');
+    function set(v) {
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      bar.classList.remove('show');
+      if (v === 'granted') enableAnalytics();
+    }
+    function enableAnalytics() {
+      // No analytics are loaded today. When one is added, load it here -
+      // this function runs only after explicit consent.
+    }
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved === 'granted') { enableAnalytics(); }
+    else if (saved !== 'denied') { bar.classList.add('show'); }
+    document.getElementById('consent-yes').addEventListener('click', function () { set('granted'); });
+    document.getElementById('consent-no').addEventListener('click', function () { set('denied'); });
+  })();
+</script>
 
 <script>
   const form = document.getElementById('contact-form');
